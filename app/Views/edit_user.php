@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/app') ?>
 <?= $this->section('content') ?>
-<main class="form-signin w-100 m-auto">
+<main class="container-sm">
   <form method="POST" action="<?= base_url('/user/' . $user['id']) ?>" enctype="multipart/form-data">
     <h1 class="h3 mt-5 mb-3 fw-normal">Let's sign up</h1>
     <div class="form-floating">
