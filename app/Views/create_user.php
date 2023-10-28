@@ -26,7 +26,7 @@
         <label class="col-sm-1 col-form-label" for="gridCheck">NPM</label>
 
         <div class="col-sm-10">
-            <input type="number" class="form-control mt-1 <?= session('validation') ? 'is-invalid' : '' ?>" id="floatingNpm" placeholder="NPM" name="npm" value="<?= old('npm') ?>">
+        <input type="number" class="form-control mt-1 <?= session('validation') ? 'is-invalid' : '' ?>" id="floatingNpm" placeholder="NPM" name="npm" value="<?= old('npm') ?>">
       </div>
       <?php if (session('validation') && session('validation')->hasError('npm')) : ?>
         <div class="invalid-feedback">
@@ -48,7 +48,7 @@
 
 
     
-     <input type="submit" class="btn btn-primary" value="Sign I n">
+     <input type="submit" class="btn btn-primary" value="Insert">
   </form>
 </main>
 <?= $this->endSection('content') ?>
