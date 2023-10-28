@@ -1,0 +1,57 @@
+
+* {
+    transition: background-color 300ms ease, color 300ms ease;
+}
+*:focus {
+    background-color: rgba(221, 72, 20, .2);
+    outline: none;
+}
+html, body {
+ 
+}
+header {
+    background-color: rgb(19, 117, 215);
+    padding-bottom: 10px;
+}
+.menu {
+    padding: .4rem 2rem;
+    margin-right: 100px;
+}
+header ul {
+    
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-align: right;
+}
+header li {
+    display: inline-block;
+}
+header li a {
+    border-radius: 5px;
+    color: white;
+    display: block;
+    height: 44px;
+    text-decoration: none;
+}
+header li.menu-item a {
+    border-radius: 5px;
+    margin: 5px 5px;
+    height: 38px;
+    line-height: 36px;
+    padding: .4rem .65rem;
+    text-align: center;
+}
+header li.menu-item a:hover,
+header li.menu-item a:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgb(235, 208, 198);
+}
+
+
+header .menu-toggle button:hover,
+header .menu-toggle button:focus {
+    background-color: rgba(193, 227, 207, 0.8);
+    color: rgba(255, 255, 255, .8);
+}
