@@ -1,40 +1,57 @@
-<?= $this->extend('layouts/app') ?>
-<?= $this->section('content') ?>
 
-<div class="container">
-  <div class="row">
-    <h3 class="mt-5">Tabel User</h3>
-    <a href="<?= base_url('user/create')?>" class="btn btn-primary col-2">Tambah Data</a>
-    <table class="table table-striped py-2">
-      <thead>
-        <tr>
-          <td>No</td>
-          <td>Nama</td>
-          <td>NPM</td>
-          <td>Kelas</td>
-          <td>Aksi</td>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $no = 1;
-        foreach ($users as $user) { ?>
-          <tr>
-            <td><?= $no++ ?></td>
-            <td><?= $user['nama'] ?></td>
-            <td><?= $user['npm'] ?></td>
-            <td><?= $user['nama_kelas'] ?></td>
-            <td>
-              <a class="btn btn-primary" href="<?= base_url('user/' . $user['id']) ?>">Detail</a>
-              <a class="btn btn-warning" href="">Edit</a>
-              <a class="btn btn-danger" href="">Hapus</a>
+<?= $this->extend('layouts/app')?>
+<?= $this->section('content')?>
+   
 
-            </td>
-          </tr>
-        <?php }
-        ?>
-      </tbody>
-    </table>
-  </div>
-</div>
-<?= $this->endSection('content') ?>
+    <h3 class="mt-5" style="text-align:center; padding-bottom:60px;">Tabel List User</h3>
+    <a href="<?= base_url('user/create')?>" style="margin-left:100px;margin-bottom:20px; " class="btn btn-primary">Tambah data</a> 
+    <div class="container">
+    <div class="row">
+   
+    <table style="text-align:center;">
+        <thead>
+            <tr>
+                <th width="20px">No</th>
+                <th>ID User</th>
+                <th>Nama</th>
+                <th>NPM</th>
+                <th>Kelas</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $no = 1;
+            foreach ($users as $user){
+            ?>
+                <tr bgcolor=<?php
+                    if($no%2==1){
+                        echo"white";
+                    }else{
+                        echo "#dbd7d7";
+                    }
+                ?>>
+                    <td style="width:50px; height:200px;"><?php echo $no++ ?></td>
+                    <td align="center"><?= $user['id'] ?></td>
+                    <td><?= $user['nama'] ?></td>
+                    <td><?= $user['npm'] ?></td>
+                    <td><?= $user['nama_kelas'] ?></td>
+
+                    <td >
+                        <div class="wrap d-flex " style="margin-right:-150px;">
+                        <a class="btn btn-primary" style="width: 80px; height: 40px; margin-right: 10px;" href="<?= base_url('user/' . $user['id']) ?>">Detail</a>
+                            <a href="<?= base_url('/user/' . $user['id'] . '/edit') ?>" class="btn btn-warning">Edit</a>
+                            <form width="10px" action="<?=base_url('user/' . $user['id'])?>" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <?= csrf_field() ?>
+                                <input type="submit" class="btn btn-danger" value="Delete" style="width: 80px; height: 40px;">
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <?php
+            }
+            ?>
+        </tbody>
+</table>
+<?= $this->endSection()?>
