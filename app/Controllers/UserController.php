@@ -3,40 +3,40 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
 use App\Models\KelasModel;
+use App\Models\UserModel;
 
 class UserController extends BaseController
 {
-    public $kelasUser;
+    public $userModel;
     public $kelasModel;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->userModel = new UserModel();
         $this->kelasModel = new KelasModel();
     }
-
+    
     public function index()
     {
-        //
+        $data = [
+            'title' => 'List User',
+            'users' => $this->userModel->getUser(),
+        ];
+        return view('list_user', $data);
     }
-    public function profile($nama = "", $kelas = "", $npm = "", $jurusan = "", $angkatan = "", $alamat = "")
+    public function profile($nama = "", $kelas = "", $npm = "")
     {
         $data = [
             'nama' => $nama,
             'kelas' => $kelas,
             'npm' => $npm,
-            'jurusan' => $jurusan,
-            'angkatan' => $angkatan,
-            'alamat' => $alamat,
         ];
         return view('profile', $data);
     }
     public function create()
     {
-        // $kelasModel = new KelasModel();
-        $kelas = $this->kelasModel->getKelas();
-        // [
+        // $kelas = [
         //     [
         //         'id' => 1,
         //         'nama_kelas' => 'A'
@@ -54,8 +54,9 @@ class UserController extends BaseController
         //         'nama_kelas' => 'D'
         //     ],
         // ];
-
+        $kelas = $this->kelasModel->getKelas();
         $data  = [
+            'title' => 'Create User',
             'kelas' => $kelas,
             'validation' => \Config\Services::validation()
         ];
@@ -67,14 +68,14 @@ class UserController extends BaseController
             'nama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => '{field} harus di isi terlebih dahulu.'
+                    'required' => '{field} mahasiswa harus di isi.'
                 ]
             ],
             'npm' => [
                 'rules' => 'required|is_unique[user.npm]',
                 'errors' => [
-                    'required' => '{field} wajib di isi.',
-                    'is_unique' => '{field} sudah terdaftar.'
+                    'required' => '{field} mahasiswa harus di isi.',
+                    'is_unique' => '{field} mahasiswa sudah terdaftar.'
                 ]
             ]
         ])) {
@@ -82,24 +83,19 @@ class UserController extends BaseController
             return redirect()->to(base_url('/user/create'))->withInput()->with('validation', $validation);
         }
 
-        $userModel = new UserModel();
-        $userModel->saveUser([
+        $this->userModel->saveUser([
             'nama' => $this->request->getVar('nama'),
             'id_kelas' => $this->request->getVar('kelas'),
             'npm' => $this->request->getVar('npm'),
-            'jurusan' => $this->request->getVar('jurusan'),
-            'angkatan' => $this->request->getVar('angkatan'),
-            'alamat' => $this->request->getVar('alamat'),
         ]);
         // dd($this->request->getVar());
-        $data = [
-            'nama' => $this->request->getVar('nama'),
-            'kelas' => $this->request->getVar('kelas'),
-            'npm' => $this->request->getVar('npm'),
-            'jurusan' => $this->request->getVar('jurusan'),
-            'angkatan' => $this->request->getVar('angkatan'),
-            'alamat' => $this->request->getVar('alamat'),
-        ];
-        return view('profile', $data);
+        // $data = [
+        //     'title' => 'Profile',
+        //     'nama' => $this->request->getVar('nama'),
+        //     'kelas' => $this->request->getVar('kelas'),
+        //     'npm' => $this->request->getVar('npm'),
+        // ];
+        // return view('profile', $data);
+        return redirect()->to(base_url('/user'));
     }
 }
